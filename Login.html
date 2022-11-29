@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in & Sign Up</title>
+    <link rel="stylesheet" href="Login.css">
+ 
+</head>
+<body>
+
+    <main>
+        <div class="box">
+            <div class="inner-box">
+                <div class="form-wrap">
+                    <form action="/otp.html" method="post" autocomplete="on" class="login-form" onsubmit="return validate()"> 
+                    <div class="heading">
+                        <h2>Welcome Back</h2>
+                        <h6>Don't have a account ?</h6>
+                        <a href="#" class="toggle">Sign Up</a>
+                    </div>   
+                    <div class="actualform">
+                        <div class="inputwrap">
+                        <input type="text" autocomplete="on"   id="username" class="input-field" >
+                        <label for="username">Username</label>
+                        <p class="error" id="un"></p>
+                    </div> 
+                    <div class="inputwrap">
+                        <input type="password" autocomplete="on"   id="password" class="input-field" >
+                        <label for="password">Password</label>
+                        <p class="error" id="pd"></p>
+                    </div> 
+                    <div class="fgtpsd">
+                        <h6>Forgat Password ?</h6>
+                        <a href="#" class="fgtb">Get help</a>
+                    </div>
+                    <input type="submit" class="sign-inbtn" value="Sign In" id="signin">
+                    </div> 
+                    
+                    </form>
+                    <form action="/otp.html" method="post" autocomplete="on" class="sign-Up-form" onsubmit="return validatesignup()">  
+                        <div class="heading">
+                            <h2>Get Started</h2>
+                            <h6>Alredy have a account ?</h6>
+                            <a href="#" class="toggle">Log In</a>
+                        </div>   
+                        <div class="actualform">
+                            <div class="inputwrap">
+                            <input type="text" autocomplete="on"   id="uname2" class="input-field">
+                            <label for="name">Username</label>
+                            <p class="error" id="nam"></p>
+                        </div> 
+                        <div class="inputwrap">
+                            <input type="email" autocomplete="on"  id="Email" class="input-field">
+                            <label for="email">Email</label>
+                            <p class="error"  id="eml"></p>
+                        </div> 
+                        <div class="inputwrap">
+                            <input type="password" autocomplete="on"  id="password2" class="input-field">
+                            <label for="password">Password</label>
+                            <p class="error"  id="npsd"></p>
+                        </div> 
+                        <div class="inputwrap">
+                            <input type="password" autocomplete="on"  id="password3" class="input-field">
+                            <label for="password">Confirm Password</label>
+                            <p class="error"  id="npsd2"></p>
+                        </div> 
+                       
+                        <input type="submit" class="sign-inbtn" value="Create account" id="signup">
+               <div class="tc"> <p id="t&c"><input type="checkbox" id="t&c2"> I accept all the <a href=""> terms and codition</a> </p></div>
+                        </div> 
+                        
+                        </form>
+                </div>
+                <div class="left-sidebox">
+                    <div id="1" class="normal">
+                        <img src="login.png" alt="Welcome" class="log-in1" height="70%" width="70%">
+                    </div>
+                    <div id="2" class="normal">
+                        <img src="Sign up-amico (1).png" alt="Welcome" class="log-in2" height="68%" width="68%">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="Login.js"></script>
+</body>
+</html>

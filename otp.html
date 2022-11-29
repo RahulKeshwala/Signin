@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP-verify</title>
+    <link rel="stylesheet" href="otp.css">
+
+</head>
+
+<body>
+
+    <main>
+        <div class="box">
+            <div class="inner-box">
+                <div class="form-wrap">
+                    <form action="finalpage.html" target="_blank" method="post" autocomplete="on" class="login-form" onsubmit="return validate()">
+                        <div class="heading">
+                            <h2>Verify OTP</h2>
+                            <h6>If you didn't get OTP!</h6>
+                            <a href="#" class="Resend">Resend</a>
+                        </div>
+                        <div class="actualform">
+                            <div class="inputwrap">
+                                <input type="text" autocomplete="on" minlength="14" maxlength="14 " id="phone"
+                                    class="input-field" required>
+                                    <p class="placeholder" id="placeholder">Enter Conatact Number with coutry code like +91                                    </p>
+                                <label for="phone">Contact Number</label>
+                                
+
+
+                            </div>
+
+                            <input type="button" class="sign-inbtn" value="Send" id="Send">
+                         
+                            <div id="recaptcha-container"></div>
+                            <div class="inputwrap">
+
+                                <input type="otp" autocomplete="on" minlength="6" maxlength="6" id="otp"
+                                    class="input-field" required>
+                                <label for="otp">Enter OTP</label>
+                                <p class="error" id="un"></p>
+                            </div>
+
+                            <input type="submit" class="sign-inbtn" value="Verify" id="Verify">
+                        </div>
+
+                    </form>
+
+
+                </div>
+                <div class="left-sidebox">
+
+                    <div class="secound">
+                        <img src="Enter OTP-amico.png" alt="Sign up" class="log-in2" height="68%" width="68%">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="otp.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-analytics.js"></script>
+    
+    <script defer src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
+    <script type="module">
+        const inpt = document.querySelectorAll("input");
+        const toggle_btn = document.querySelectorAll(".toggle");
+        const main = document.querySelector("main");
+        const send = document.getElementById("Send");
+        const Verify = document.getElementById("Verify");
+
+        var loginphone = document.getElementById("Send");
+        var phoneinput = document.getElementById("phone");
+        var otpinput = document.getElementById("otp");
+        var verifyotp = document.getElementById("Verify");
+        
+
+        inpt.forEach(inp => {
+            inp.addEventListener("focus", () => {
+
+                inp.classList.add("active");
+            });
+
+            inp.addEventListener("blur", () => {
+                if (inp.value != "") return;
+                inp.classList.remove("active")
+            });
+        });
+
+       
+    
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDbRfJGh5qOuy5KfAZW_YhOGZU7jGm3AXY",
+            authDomain: "signuppage-8a310.firebaseapp.com",
+            databaseURL: "https://signuppage-8a310-default-rtdb.firebaseio.com",
+            projectId: "signuppage-8a310",
+            storageBucket: "signuppage-8a310.appspot.com",
+            messagingSenderId: "151658958693",
+            appId: "1:151658958693:web:9ce8a9136b6b67b017db8c"
+        };
+
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+
+
+
+
+        loginphone.onclick = function () {
+            send.value='Sending..';
+            send.desabled=true;
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'invisible',
+                'callback': (response) => {
+send.desabled=false;
+                    // reCAPTCHA solved, allow signInWithPhoneNumber.
+                    // window.alert("captcha solved");
+                    onSignInSubmit();
+                    
+                }
+
+            });
+
+            var cverify = window.recaptchaVerifier;
+
+            firebase.auth().signInWithPhoneNumber(phoneinput.value, cverify).then(function (response) {
+                console.log(response);
+                window.confirmationResult = response;
+            }).catch(function (error) {
+                grecaptcha.reset(window.recaptchaWidgetId);
+
+                // Or, if you haven't stored the widget ID:
+                window.recaptchaVerifier.render().then(function (widgetId) {
+                    grecaptcha.reset(widgetId);
+                });
+                console.error('Error during signInWithPhoneNumber', error);
+                window.alert('Error during signInWithPhoneNumber:\n\n'
+                    + error.code + '\n\n' + error.message);
+                window.signingIn = false;
+                console.log(error);
+            })
+        }
+
+        verifyotp.onclick = function () {
+            confirmationResult.confirm(otpinput.value).then(function (response) {
+                
+window.alert("Otp  verifyed")
+
+            })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
+
+    </script>
+</body>
+
+</html>
